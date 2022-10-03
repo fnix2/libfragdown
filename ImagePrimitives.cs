@@ -28,10 +28,5 @@
         {
             return $"Ver: {Vertical} Hor: {Horizontal}";
         }
-
-        public (int ver, int hor) GetCorrdinates()
-        {
-            return (ver: Vertical, hor: Horizontal);
-        }
     }
 }
