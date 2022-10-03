@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace libfragdown
+﻿namespace libfragdown
 {
     public struct ImageMetaData
     {

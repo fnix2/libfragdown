@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace libfragdown
 {
     public class UrlGenerator : IEnumerable<ImageMetaData>
