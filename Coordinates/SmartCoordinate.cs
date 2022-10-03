@@ -1,6 +1,6 @@
 namespace libfragdown
 {
-    public struct SmartCoordinate
+    public readonly struct SmartCoordinate
     {
         public SmartCoordinate(ImageCoordinates maxImageCoordinates, ImageCoordinates current = new())
         {
