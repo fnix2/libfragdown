@@ -12,7 +12,7 @@ namespace libfragdown
             _imageStorage = imageStorage;
         }
 
-        public void Montage(bool deleteTiles = true)
+        public bool Montage(bool deleteTiles = true)
         {
             // One thread use less ram and working faster
             NetVips.NetVips.Concurrency = 1;
@@ -43,6 +43,8 @@ namespace libfragdown
                     File.Delete(_imageStorage.GetImagePath(coordinate));
                 }
             }
+            //TODO check if Montage complete
+            return true;
         }
     }
 }

@@ -12,12 +12,14 @@ namespace libfragdown
             _imageStorage = imageStorage;
         }
 
-        public void DownloadImages()
+        public bool DownloadImages()
         {
             foreach (var url in _urlGenerator)
             {
                 DownloadImage(url);
             }
+            //TODO check if Download complete
+            return true;
         }
 
         //TODO move to utils class?
