@@ -26,7 +26,7 @@
 
         public override string ToString()
         {
-            return $"Ver: {Vertical} Hor: {Horizontal}";
+            return $"Hor: {Horizontal} Ver: {Vertical}";
         }
     }
 }
