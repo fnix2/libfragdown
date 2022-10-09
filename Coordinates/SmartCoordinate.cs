@@ -8,7 +8,7 @@ namespace libfragdown
             Current = current;
         }
 
-        public static (SmartCoordinate newValue, bool isSucces) operator +(SmartCoordinate a, ImageCoordinates b)
+        public static (SmartCoordinate newValue, bool isSucces) operator +(SmartCoordinate a, int b)
         {
             return a.Add(b);
         }
@@ -17,29 +17,28 @@ namespace libfragdown
 
         public ImageCoordinates MaxImageCoordinates { get; }
 
-        public (SmartCoordinate newValue, bool isSucces) Add(ImageCoordinates addCoordinate)
+        public (SmartCoordinate newValue, bool isSucces) Add(int add)
         {
-            var curVer = Current.Vertical;
-            var curHor = Current.Horizontal;
-            var addVer = addCoordinate.Vertical;
-            var addHor = addCoordinate.Horizontal;
-            if ((curHor + addHor) > MaxImageCoordinates.Horizontal)
+            int curNumber = GetNumberFromCoordinate(Current);
+            int maxNumber = GetNumberFromCoordinate(MaxImageCoordinates);
+            if (maxNumber >= add + curNumber)
             {
-                if ((curVer + addVer) > MaxImageCoordinates.Vertical)
-                {
-                    return (new(MaxImageCoordinates, Current), false);
-                }
-                else
-                {
-                    var newCurrent = new ImageCoordinates(vertical: curVer + addVer);
-                    return (new(MaxImageCoordinates, newCurrent), true);
-                }
+                return new(new(MaxImageCoordinates, GetCoordinateFromNumber(add + curNumber)), true);
             }
-            else
-            {
-                var newCurrent = new ImageCoordinates(horizontal: curHor + addHor, vertical: curVer);
-                return (new(MaxImageCoordinates, newCurrent), true);
-            }
+            return new(new(MaxImageCoordinates, Current), false);
+        }
+
+        private ImageCoordinates GetCoordinateFromNumber(int number)
+        {
+            int hor = ((number % (MaxImageCoordinates.Horizontal + 1)) + 
+                    (MaxImageCoordinates.Horizontal)) % (MaxImageCoordinates.Horizontal + 1);
+            int ver = (int)Math.Ceiling((double)number / (MaxImageCoordinates.Horizontal + 1)) - 1;
+            return new(hor, ver);
+        }
+
+        private int GetNumberFromCoordinate(ImageCoordinates coordinates)
+        {
+            return (coordinates.Vertical * (MaxImageCoordinates.Horizontal + 1)) + coordinates.Horizontal + 1;
         }
     }
 }

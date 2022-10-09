@@ -10,7 +10,7 @@ namespace libfragdown
             _currentCoordinate = new(maxImageCoordinates);
         }
 
-        public CoordinatesGenerator(ImageCoordinates maxImageCoordinates, ImageCoordinates step) : this(maxImageCoordinates)
+        public CoordinatesGenerator(ImageCoordinates maxImageCoordinates, int step) : this(maxImageCoordinates)
         {
             Step = step;
         }
@@ -19,8 +19,8 @@ namespace libfragdown
 
         public int Count => (_currentCoordinate.MaxImageCoordinates.Horizontal + 1) *
             (_currentCoordinate.MaxImageCoordinates.Vertical + 1);
+        public int Step { get; } = 1;
 
-        public ImageCoordinates Step { get; } = new(1, 1);
 
         public ImageCoordinates MaxImageCoordinates { get; }
 
