@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibfragdownTest", "tests\LibfragdownTest.csproj", "{80FAE63A-7B8E-48B8-9BF2-8D063B40B5DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libfragdown", "src\Libfragdown.csproj", "{415C6AAD-05CA-4E55-B85D-3842427A54C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80FAE63A-7B8E-48B8-9BF2-8D063B40B5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80FAE63A-7B8E-48B8-9BF2-8D063B40B5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80FAE63A-7B8E-48B8-9BF2-8D063B40B5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80FAE63A-7B8E-48B8-9BF2-8D063B40B5DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{415C6AAD-05CA-4E55-B85D-3842427A54C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{415C6AAD-05CA-4E55-B85D-3842427A54C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{415C6AAD-05CA-4E55-B85D-3842427A54C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{415C6AAD-05CA-4E55-B85D-3842427A54C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
