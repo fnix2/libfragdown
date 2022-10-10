@@ -2,14 +2,15 @@ namespace libfragdown
 {
     public class Downloader
     {
-        private readonly HttpClient _httpClient = new();
         private readonly UrlGenerator _urlGenerator;
         private readonly ImageStorage _imageStorage;
+        private readonly IUrlToStream _urlToStream;
 
-        public Downloader(UrlGenerator urlGenerator, ImageStorage imageStorage)
+        public Downloader(UrlGenerator urlGenerator, ImageStorage imageStorage, IUrlToStream urlToStream)
         {
             _urlGenerator = urlGenerator;
             _imageStorage = imageStorage;
+            _urlToStream = urlToStream;
         }
 
         public bool DownloadImages()
@@ -71,10 +72,10 @@ namespace libfragdown
             }
 
             string tempFileName = Path.GetTempFileName();
-            using var imageFile = File.Create(tempFileName);
+            using FileStream imageFile = File.Create(tempFileName);
 
-            var downloadTask = _httpClient.GetStreamAsync(url.Url);
-            using (var task = downloadTask.Result.CopyToAsync(imageFile))
+            Stream downloadStream = _urlToStream.GetStream(url.Url);
+            using (Task task = downloadStream.CopyToAsync(imageFile))
             {
                 task.Wait();
             }
@@ -93,5 +94,4 @@ namespace libfragdown
             }
         }
     }
-
 }
