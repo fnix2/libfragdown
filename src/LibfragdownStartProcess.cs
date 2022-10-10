@@ -20,7 +20,7 @@ namespace libfragdown
             CoordinatesToUrl = coordinatesToUrl;
             State = LibfragdownProcessStates.Searching;
             //TODO check if can find Coordinates
-            MaxCoordinates = MaxCoordinatesSearch.FindMaxCoordinates(remoteCoordinateState);
+            MaxCoordinates = new MaxCoordinatesSearch(remoteCoordinateState).FindMaxCoordinates();
             UrlGenerator = new(new CoordinatesGenerator(MaxCoordinates), CoordinatesToUrl);
             State = LibfragdownProcessStates.ReadyForDownload;
         }
@@ -45,11 +45,11 @@ namespace libfragdown
 
         public ImageCoordinates MaxCoordinates { get; }
 
-        public void Start(bool deleteDownloadedFiles=true)
+        public void Start(bool deleteDownloadedFiles = true)
         {
             State = LibfragdownProcessStates.Downloading;
             ImageStorage storage = new(Url);
-            Downloader downloader = new(UrlGenerator, storage);
+            Downloader downloader = new(UrlGenerator, storage, new UrlToStreamGeneric());
             bool downloadSuccess = downloader.DownloadImages();
             if (!downloadSuccess)
             {

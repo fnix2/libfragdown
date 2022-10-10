@@ -1,8 +1,13 @@
 namespace libfragdown
 {
-    public static class MaxCoordinatesSearch
+    public class MaxCoordinatesSearch
     {
-        private static IRemoteCoordinateState? _coordinateExist;
+        private readonly IRemoteCoordinateState _coordinateExist;
+
+        public MaxCoordinatesSearch(IRemoteCoordinateState remoteCoordinateState)
+        {
+            _coordinateExist = remoteCoordinateState;
+        }
 
         private enum CoordinateType
         {
@@ -10,15 +15,14 @@ namespace libfragdown
             Vertical
         }
 
-        public static ImageCoordinates FindMaxCoordinates(IRemoteCoordinateState remoteCoordinateState)
+        public ImageCoordinates FindMaxCoordinates()
         {
-            _coordinateExist = remoteCoordinateState;
             int horizontalMax = FindOneMaxCoordinate(CoordinateType.Horizontal);
             int verticalMax = FindOneMaxCoordinate(CoordinateType.Vertical);
             return new ImageCoordinates(horizontal: horizontalMax, vertical: verticalMax);
         }
 
-        private static int FindOneMaxCoordinate(CoordinateType coordinateType)
+        private int FindOneMaxCoordinate(CoordinateType coordinateType)
         {
             //TODO prevent endless cycle
             int leftBorder = 0;

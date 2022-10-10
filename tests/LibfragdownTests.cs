@@ -40,7 +40,7 @@ public class LibfragdownTests
     {
         ImageCoordinates maxCoordinatesExpected = new(horExpected, verExpected);
         RemoteCoordinateStateTest remoteState = new(maxCoordinatesExpected);
-        ImageCoordinates maxCoordinatesReal = MaxCoordinatesSearch.FindMaxCoordinates(remoteState);
+        ImageCoordinates maxCoordinatesReal = new MaxCoordinatesSearch(remoteState).FindMaxCoordinates();
         Assert.That(maxCoordinatesReal, Is.EqualTo(maxCoordinatesExpected));
     }
 
