@@ -2,19 +2,19 @@ namespace libfragdown
 {
     public class Downloader
     {
-        private readonly UrlGenerator _urlGenerator;
+        private UrlGenerator _urlGenerator;
         private readonly ImageStorage _imageStorage;
         private readonly IUrlToStream _urlToStream;
 
-        public Downloader(UrlGenerator urlGenerator, ImageStorage imageStorage, IUrlToStream urlToStream)
+        public Downloader(ImageStorage imageStorage, IUrlToStream urlToStream)
         {
-            _urlGenerator = urlGenerator;
             _imageStorage = imageStorage;
             _urlToStream = urlToStream;
         }
 
-        public bool DownloadImages()
+        public bool DownloadImages(UrlGenerator urlGenerator)
         {
+            _urlGenerator = urlGenerator;
             foreach (var url in _urlGenerator)
             {
                 DownloadImage(url);
