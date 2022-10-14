@@ -14,25 +14,26 @@ namespace libfragdown
         public bool StartMontage(CoordinatesGenerator coordinatesGenerator, bool deleteTiles = true)
         {
             _coordinatesGenerator = coordinatesGenerator;
-            // One thread use less ram and working faster
+            // For joining many images more then one thread don't icrease processing speed, but use more ram 
             NetVips.NetVips.Concurrency = 1;
-            /* Environment.SetEnvironmentVariable("VIPS_DISC_THRESHOLD", "1m"); */
-            Image[] images = new Image[_coordinatesGenerator.Count];
+            Image[] imageChunksGrid = new Image[_coordinatesGenerator.Count];
 
             int i = 0;
+            int widthRes = 0;
+            int heightRes = 0;
             foreach (var coordinate in _coordinatesGenerator)
             {
-                images[i] = Image.NewFromFile(_imageStorage.GetImagePath(coordinate));
+                imageChunksGrid[i] = Image.NewFromFile(_imageStorage.GetImagePath(coordinate));
+                widthRes += imageChunksGrid[i].Width;
+                heightRes += imageChunksGrid[i].Height;
                 i++;
             }
+            int imageChunksGridWidth = _coordinatesGenerator.MaxImageCoordinates.Horizontal + 1;
+            int imageChunksGridHeight = _coordinatesGenerator.MaxImageCoordinates.Vertical + 1;
+            widthRes /= imageChunksGridHeight;
+            heightRes /= imageChunksGridWidth;
 
-            using var image = Image.Arrayjoin(images, _coordinatesGenerator.MaxImageCoordinates.Horizontal + 1);
-
-            Console.WriteLine();
-            foreach (var im in images)
-            {
-                im.Dispose();
-            }
+            using Image image = Image.Arrayjoin(imageChunksGrid, imageChunksGridWidth).Crop(0, 0, widthRes, heightRes);
 
             image.WriteToFile(_imageStorage.GetMontagedImagePath());
             if (deleteTiles)
