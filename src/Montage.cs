@@ -1,17 +1,17 @@
 using NetVips;
 namespace libfragdown
 {
-    public class ImageMontage
+    public class Montager
     {
         private readonly ImageStorage _imageStorage;
         private CoordinatesGenerator? _coordinatesGenerator;
 
-        public ImageMontage(ImageStorage imageStorage)
+        public Montager(ImageStorage imageStorage)
         {
             _imageStorage = imageStorage;
         }
 
-        public bool Montage(CoordinatesGenerator coordinatesGenerator, bool deleteTiles = true)
+        public bool StartMontage(CoordinatesGenerator coordinatesGenerator, bool deleteTiles = true)
         {
             _coordinatesGenerator = coordinatesGenerator;
             // One thread use less ram and working faster

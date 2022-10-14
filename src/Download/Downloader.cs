@@ -12,7 +12,7 @@ namespace libfragdown
             _urlToStream = urlToStream;
         }
 
-        public bool DownloadImages(UrlGenerator urlGenerator)
+        public bool StartDownload(UrlGenerator urlGenerator)
         {
             _urlGenerator = urlGenerator;
             foreach (var url in _urlGenerator)

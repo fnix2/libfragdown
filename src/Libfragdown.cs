@@ -48,10 +48,10 @@ public static class Libfragdown
         ImageStorage imageStorage = options.ImageStorage(url);
         IUrlToStream urlToStream = options.UrlToStream();
         Downloader downloader = options.Downloader(imageStorage, urlToStream);
-        downloader.DownloadImages(urlGenerator);
-        ImageMontage imageMontage = options.ImageMontage(imageStorage);
+        downloader.StartDownload(urlGenerator);
+        Montager imageMontage = options.Montager(imageStorage);
         coordinatesGenerator.Reset();
-        imageMontage.Montage(coordinatesGenerator);
+        imageMontage.StartMontage(coordinatesGenerator);
     }
 }
 
@@ -108,9 +108,9 @@ public class HandlerParametersGeneric
         return new CoordinatesGenerator(maxImageCoordinates, increaseStep);
     }
 
-    public virtual ImageMontage ImageMontage(ImageStorage imageStorage)
+    public virtual Montager Montager(ImageStorage imageStorage)
     {
-        return new ImageMontage(imageStorage);
+        return new Montager(imageStorage);
     }
 }
 
