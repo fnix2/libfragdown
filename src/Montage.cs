@@ -4,16 +4,16 @@ namespace libfragdown
     public class ImageMontage
     {
         private readonly ImageStorage _imageStorage;
-        private readonly CoordinatesGenerator _coordinatesGenerator;
+        private CoordinatesGenerator? _coordinatesGenerator;
 
-        public ImageMontage(CoordinatesGenerator coordinatesGenerator, ImageStorage imageStorage)
+        public ImageMontage(ImageStorage imageStorage)
         {
-            _coordinatesGenerator = coordinatesGenerator;
             _imageStorage = imageStorage;
         }
 
-        public bool Montage(bool deleteTiles = true)
+        public bool Montage(CoordinatesGenerator coordinatesGenerator, bool deleteTiles = true)
         {
+            _coordinatesGenerator = coordinatesGenerator;
             // One thread use less ram and working faster
             NetVips.NetVips.Concurrency = 1;
             /* Environment.SetEnvironmentVariable("VIPS_DISC_THRESHOLD", "1m"); */
