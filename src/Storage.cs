@@ -31,7 +31,7 @@ namespace libfragdown
 
         public string GetImagePath(ImageCoordinates coordinates)
         {
-            string imageName = $"{coordinates.Vertical}_{coordinates.Horizontal}";
+            string imageName = $"{coordinates.Horizontal}_{coordinates.Vertical}";
             return Path.Combine(_pathToImagesDirectory, imageName);
         }
 
