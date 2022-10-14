@@ -30,10 +30,10 @@ namespace libfragdown
 
         private ImageCoordinates GetCoordinateFromNumber(int number)
         {
-            int hor = ((number % (MaxImageCoordinates.Horizontal + 1)) + 
-                    (MaxImageCoordinates.Horizontal)) % (MaxImageCoordinates.Horizontal + 1);
+            int hor = ((number % (MaxImageCoordinates.Horizontal + 1)) +
+                    MaxImageCoordinates.Horizontal) % (MaxImageCoordinates.Horizontal + 1);
             int ver = (int)Math.Ceiling((double)number / (MaxImageCoordinates.Horizontal + 1)) - 1;
-            return new(hor, ver);
+            return new(horizontal: hor, vertical: ver);
         }
 
         private int GetNumberFromCoordinate(ImageCoordinates coordinates)
