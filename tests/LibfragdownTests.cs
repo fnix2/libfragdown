@@ -51,7 +51,7 @@ public class LibfragdownTests
     [TestCase(0, 50)]
     [TestCase(50, 0)]
     [TestCase(50, 50)]
-    public void CoordinatesGeneratorOneTest(int hor, int ver)
+    public void CoordinatesGeneratorTest(int hor, int ver)
     {
         ImageCoordinates maxCor = new(hor, ver);
         CoordinatesGenerator corGen = new(maxCor);
@@ -65,4 +65,16 @@ public class LibfragdownTests
         Assert.That(realCount, Is.EqualTo(expectedCount));
     }
 
+    [TestCase(1, 1, new string[] {"0_0", "1_0", "0_1", "1_1"})]
+    public void UrlGeneratorTest(int hor, int ver, string[] expectedName)
+    {
+        CoordinatesGenerator corGen = new(new(horizontal: hor, vertical: ver));
+        UrlGenerator urlGen = new(corGen, new CoordinatesToUrlGeneric(new Uri("http://test.com")));
+        int i = 0;
+        foreach (ImageMetaData url in urlGen)
+        {
+            Assert.That(url.Url.ToString(), Is.EqualTo($"http://test.com/{expectedName[i]}.jpg"));
+            i++;
+        }
+    }
 }
