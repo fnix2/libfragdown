@@ -12,7 +12,7 @@ namespace libfragdown
 
         private readonly string _pathToMontagedImage;
 
-        public ImageStorage(Uri baseUrl, string pathToTilesDirectory, string pathToMontagedImage)
+        public ImageStorage(Uri baseUrl, string pathToMontagedImage, string pathToTilesDirectory)
         {
             string urlHash = GetHashedUrl(baseUrl);
             _pathToTilesDirectory = Path.Combine(pathToTilesDirectory, _defaultTilesDirectoryPrefix, urlHash);
