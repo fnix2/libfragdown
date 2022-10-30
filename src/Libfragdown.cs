@@ -77,9 +77,14 @@ public class HandlerParametersGeneric
         return new ImageStorage(url);
     }
 
-    public virtual ImageStorage ImageStorage(Uri url, string pathToImagesDirectory, string pathToMontagedImage)
+    public virtual ImageStorage ImageStorage(Uri url, string pathToMontagedImage, string pathToTilesDirectory)
     {
-        return new ImageStorage(url, pathToImagesDirectory, pathToMontagedImage);
+        return new ImageStorage(url, pathToMontagedImage, pathToTilesDirectory);
+    }
+
+    public virtual ImageStorage ImageStorage(Uri url, string pathToMontagedImage)
+    {
+        return new ImageStorage(url, pathToMontagedImage);
     }
 
     public virtual IUrlToStream UrlToStream()
