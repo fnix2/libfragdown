@@ -4,35 +4,47 @@ namespace libfragdown
 {
     public class ImageStorage
     {
-        private readonly string _pathToImagesDirectory;
+        private const string _defaultImageName = "Montaged.jpg";
+
+        private const string _defaultTilesDirectoryPrefix = "libfragdown";
+
+        private readonly string _pathToTilesDirectory;
 
         private readonly string _pathToMontagedImage;
 
-        public ImageStorage(Uri baseUrl, string pathToImagesDirectory, string pathToMontagedImage)
+        public ImageStorage(Uri baseUrl, string pathToTilesDirectory, string pathToMontagedImage)
         {
             string urlHash = GetHashedUrl(baseUrl);
-            _pathToImagesDirectory = Path.Combine(pathToImagesDirectory, "libfragdown", urlHash);
+            _pathToTilesDirectory = Path.Combine(pathToTilesDirectory, _defaultTilesDirectoryPrefix, urlHash);
             _pathToMontagedImage = pathToMontagedImage;
-            Directory.CreateDirectory(_pathToImagesDirectory);
+            Directory.CreateDirectory(_pathToTilesDirectory);
         }
 
         public ImageStorage(Uri baseUrl)
         {
             string urlHash = GetHashedUrl(baseUrl);
-            _pathToImagesDirectory = Path.Combine(Path.GetTempPath(), "libfragdown", urlHash);
-            _pathToMontagedImage = Path.Combine(_pathToImagesDirectory, "Montaged.jpg");
-            Directory.CreateDirectory(_pathToImagesDirectory);
+            _pathToTilesDirectory = Path.Combine(Path.GetTempPath(), _defaultTilesDirectoryPrefix, urlHash);
+            _pathToMontagedImage = Path.Combine(_pathToTilesDirectory, _defaultImageName);
+            Directory.CreateDirectory(_pathToTilesDirectory);
+        }
+
+        public ImageStorage(Uri baseUrl, string pathToMontagedImage)
+        {
+            string urlHash = GetHashedUrl(baseUrl);
+            _pathToTilesDirectory = Path.Combine(Path.GetTempPath(), _defaultTilesDirectoryPrefix, urlHash);
+            _pathToMontagedImage = pathToMontagedImage;
+            Directory.CreateDirectory(_pathToTilesDirectory);
         }
 
         public string GetMontagedImagePath()
         {
-            return Path.Combine(_pathToImagesDirectory, _pathToMontagedImage);
+            return Path.Combine(_pathToMontagedImage);
         }
 
         public string GetImagePath(ImageCoordinates coordinates)
         {
             string imageName = $"{coordinates.Horizontal}_{coordinates.Vertical}";
-            return Path.Combine(_pathToImagesDirectory, imageName);
+            return Path.Combine(_pathToTilesDirectory, imageName);
         }
 
         private static string GetHashedUrl(Uri url)
